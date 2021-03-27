@@ -1,32 +1,39 @@
-'use strict';
+"use strict";
+const express = require("express");
+const path=require("path")
 
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url);
+const app = express();
+const PORT = 3000;
+let ticket = 0;
+const displayList = {};
 
-const express = require('express')
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-import * as op from "./orderProcessing.js";
-
-const app = express()
-const port = 3000
-
+app.use(express.static(path.join(__dirname, 'public')));
 //var bodyParser = require('body-parser')
-app.use(express.urlencoded({extended:true}))
-
+app.use(express.urlencoded({ extended: true }));
 
 const path=require("path")
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '')));
 
-app.post('/PlaceOrder', (req, res) => {
-  op.placeOrder(req,res)
-})
+app.get("/next", (req, res) => {
+  //http://localhost:3000/next?tent=tent5
+  const tent = req.query.tent;
+  ticketIncrement();
+  displayList[ticket] = tent;
+  res.send(JSON.stringify({ ticket }));
+});
 
+app.get("/display", (req, res) => {
+  res.send(JSON.stringify(displayList));
+});
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+app.get("/present", (req, res) => {
+  const ticket = req.query.ticket;
+  delete displayList[ticket];
+  res.status(200).send("OK");
+});
 
- 
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
+});
+
+const ticketIncrement = () => (ticket == 999 ? (ticket = 1) : ticket++);

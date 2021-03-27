@@ -5,8 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="display.css">
 </head>
-<body>
-    
+<body >
+<script>
+setInterval(startShowingMessage, 1000)
+async function startShowingMessage(){
+       const response = await fetch('http://localhost:3000/display');
+       const text = await response.text();
+
+      obj = JSON.parse(text); 
+      let newArray = [] 
+
+        for (var key in obj) {
+             console.log(key + " -> " + obj[key]);
+             newArray.push('<tr>' + key + "<td> " + obj[key] +'</td>' + '</tr>');
+        }
+    document.getElementById('data').innerHTML='<table> <th> Queue </th> ' + newArray + '</table>'
+    }
+</script>
+<h1>Covid Ticket</h1>
+<div id='data'></div>
+
+ 
 </body>
 </html>
