@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
+    <div>
+
+        <label for="tentName">Tent Name </label>
+        <input id="tentName" type="text">
+        <label for="nowServing" id="nowServing"> Currently Serving </label>
+        <input id="nowServing" type="text">
+        <!-- link to team on 2B  -->
+    </div>
+
+
+    <button id="mYdiv" style="display: block" onclick=" nextPatient()">Next Patient</button>
+
+    <button style="display: none" id="myDIV" onclick="nextPatient()">Patient Present </button>
+
+    <script>
+
+        function nextPatient() {
+            var x = document.getElementById("myDIV");
+            var y = document.getElementById("mYdiv");
+            if (x.style.display === "none" && y.style.display === "block") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+                y.style.display = "block";
+
+            }
+        }
+
+
+
+
+
+    </script>
 </body>
+
 </html>
