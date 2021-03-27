@@ -11,7 +11,7 @@
 <script>
 setInterval(startShowingMessage, 1000)
 async function startShowingMessage(){
-       const response = await fetch('http://server:3001/display');
+       const response = await fetch('http://localhost:3000/display');
        const text = await response.text();
 
       obj = JSON.parse(text); 
