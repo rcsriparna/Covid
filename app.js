@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 import * as op from "./orderProcessing.js";
 
 const app = express()
-const port = 3000
+const port = 3001
 
 //var bodyParser = require('body-parser')
 app.use(express.urlencoded({extended:true}))
