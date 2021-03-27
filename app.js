@@ -16,16 +16,22 @@ app.get("/next", (req, res) => {
   const tent = req.query.tent;
   ticketIncrement();
   displayList[ticket] = tent;
+  res.type('application/json')
+  res.append('Access-Control-Allow-Origin', ['*']);
   res.send(JSON.stringify({ ticket }));
 });
 
 app.get("/display", (req, res) => {
+  res.type('application/json')
+  res.append('Access-Control-Allow-Origin', ['*']);
   res.send(JSON.stringify(displayList));
 });
 
 app.get("/present", (req, res) => {
   const ticket = req.query.ticket;
   delete displayList[ticket];
+  res.type('application/json')
+  res.append('Access-Control-Allow-Origin', ['*']);
   res.status(200).send("OK");
 });
 
