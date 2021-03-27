@@ -7,7 +7,6 @@ const PORT = 3000;
 let ticket = 0;
 const displayList = {};
 
-app.use(express.static(path.join(__dirname, 'public')));
 //var bodyParser = require('body-parser')
 app.use(express.urlencoded({ extended: true }));
 
