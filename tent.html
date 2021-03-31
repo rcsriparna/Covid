@@ -13,21 +13,24 @@
     <div>
         <label for="tentName">Tent Name </label>
         <input id="tentName" type="text">
-        <label for="nowServing" id="nowServing"> Currently Serving </label>
-        <input id="nowServing" type="text">
+        <label for="nowServingField"> Currently Serving </label>
+        <input id="nowServingField" type="text">
         <!-- link to team on 2B  -->
     </div>
 
 
-    <button id="nextPatient" style="display: block" onclick=" nextPatient()">Next Patient</button>
+    <button id="nextPatientButton" style="display: block" onclick="nextPatient()">Next Patient</button>
 
-    <button style="display: none" id="patientPresent" onclick="nextPatient()">Patient Present </button>
+    <button style="display: none" id="patientPresentButton" onclick="nextPatient()">Patient Present </button>
 
     <script>
+        function log1() {
+            console.log("test")
+        }
 
         function nextPatient() {
-            var x = document.getElementById("patientPresent");
-            var y = document.getElementById("nextPatient");
+            var x = document.getElementById("patientPresentButton");
+            var y = document.getElementById("nextPatientButton");
             if (x.style.display === "none" && y.style.display === "block") {
                 x.style.display = "block";
                 y.style.display = "none";
@@ -41,16 +44,11 @@
         }
 
         async function nowServing(tent) {
-            let response = await fetch(`http://server:3001/next?tent=${tent}`)
-            const text = await response.text();
-
-            obj = JSON.parse(text);
+            let response = await fetch(`http://localhost:3000/next?tent=${tent}`)
+            const obj = await response.json();  // we use built in method in response - .json()
             console.log(obj)
+            document.getElementById('nowServingField').value = obj.ticket  // check line 21 in app.js for the key name - ticket
         }
-
-
-
-
 
     </script>
 </body>
