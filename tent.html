@@ -11,7 +11,6 @@
 <body>
 
     <div>
-
         <label for="tentName">Tent Name </label>
         <input id="tentName" type="text">
         <label for="nowServing" id="nowServing"> Currently Serving </label>
@@ -20,15 +19,15 @@
     </div>
 
 
-    <button id="mYdiv" style="display: block" onclick=" nextPatient()">Next Patient</button>
+    <button id="nextPatient" style="display: block" onclick=" nextPatient()">Next Patient</button>
 
-    <button style="display: none" id="myDIV" onclick="nextPatient()">Patient Present </button>
+    <button style="display: none" id="patientPresent" onclick="nextPatient()">Patient Present </button>
 
     <script>
 
         function nextPatient() {
-            var x = document.getElementById("myDIV");
-            var y = document.getElementById("mYdiv");
+            var x = document.getElementById("patientPresent");
+            var y = document.getElementById("nextPatient");
             if (x.style.display === "none" && y.style.display === "block") {
                 x.style.display = "block";
                 y.style.display = "none";
@@ -37,6 +36,16 @@
                 y.style.display = "block";
 
             }
+            nowServing(document.getElementById("tentName").value)
+
+        }
+
+        async function nowServing(tent) {
+            let response = await fetch(`http://server:3001/next?tent=${tent}`)
+            const text = await response.text();
+
+            obj = JSON.parse(text);
+            console.log(obj)
         }
 
 
