@@ -19,9 +19,9 @@ async function startShowingMessage(){
 
         for (var key in obj) {
              console.log(key + " -> " + obj[key]);
-             newArray.push('<tr>' + key + "<td> " + obj[key] +'</td>' + '</tr>');
+             newArray.push(`<tr><td>${key}</td><td>${obj[key]}</td></tr>`);
         }
-    document.getElementById('data').innerHTML='<table> <th> Queue </th> ' + newArray + '</table>'
+    document.getElementById('data').innerHTML='<table><thead><tr><th> Patient Number</th><th>Tent</th></tr></thead>' + newArray.join('') + '</table>'
     }
 </script>
 <h1>Covid Ticket</h1>
