@@ -32,7 +32,7 @@ app.get("/present", (req, res) => {
   delete displayList[ticket];
   res.type('application/json')
   res.append('Access-Control-Allow-Origin', ['*']);
-  res.status(200).send("OK");
+  res.status(200).send(JSON.stringify("OK")); //Nick added stringify 01/21
 });
 
 app.listen(PORT, () => {

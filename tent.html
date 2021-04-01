@@ -21,33 +21,53 @@
 
     <button id="nextPatientButton" style="display: block" onclick="nextPatient()">Next Patient</button>
 
-    <button style="display: none" id="patientPresentButton" onclick="nextPatient()">Patient Present </button>
+    <button style="display: none" id="patientPresentButton" onclick="patientPresent()">Patient Present </button>
 
     <script>
-        function log1() {
-            console.log("test")
+        
+        const server="http://localhost:3000"
+
+        async function nextPatient() {
+            var pp = document.getElementById("patientPresentButton");
+            var np = document.getElementById("nextPatientButton");
+            
+            np.style.display = "none";  //3b
+            pp.style.display = "block";  //3c
+
+            //nowServing(document.getElementById("tentName").value)
+            let tent = document.getElementById("tentName").value
+            let URL= `${server}/next?tent=${tent}`
+            obj = await callServer(URL)
+            document.getElementById('nowServingField').value = obj.ticket
         }
 
-        function nextPatient() {
-            var x = document.getElementById("patientPresentButton");
-            var y = document.getElementById("nextPatientButton");
-            if (x.style.display === "none" && y.style.display === "block") {
-                x.style.display = "block";
-                y.style.display = "none";
-            } else {
-                x.style.display = "none";
-                y.style.display = "block";
+        async function patientPresent() {
 
-            }
-            nowServing(document.getElementById("tentName").value)
+            var pp = document.getElementById("patientPresentButton");
+            var np = document.getElementById("nextPatientButton");
+            
+            pp.style.display = "none";  //4a
+            np.style.display = "block";  //4b
 
-        }
+            let ticketNum = document.getElementById('nowServingField').value 
+            let URL= `${server}/present?ticket=${ticketNum}`
 
-        async function nowServing(tent) {
-            let response = await fetch(`http://localhost:3000/next?tent=${tent}`)
-            const obj = await response.json();  // we use built in method in response - .json()
+            const obj = await callServer(URL)
             console.log(obj)
+
+        }
+
+        //obsoleted
+        async function nowServing(tent) {
+            let response = await fetch(`${server}/next?tent=${tent}`)
+            const obj = await response.json();  // we use built in method in response - .json()            
             document.getElementById('nowServingField').value = obj.ticket  // check line 21 in app.js for the key name - ticket
+        }
+
+        async function callServer(URL) {
+            let response = await fetch(URL)
+            const obj = await response.json();  // we use built in method in response - .json()
+            return obj
         }
 
     </script>
