@@ -26,13 +26,15 @@
     <script>
         
         const server="http://localhost:3000"
+        
+        const patientPresentButton = document.getElementById("patientPresentButton");
+        const nextPatientButton = document.getElementById("nextPatientButton");
+           
 
         async function nextPatient() {
-            var pp = document.getElementById("patientPresentButton");
-            var np = document.getElementById("nextPatientButton");
             
-            np.style.display = "none";  //3b
-            pp.style.display = "block";  //3c
+            nextPatientButton.style.display = "none";  //3b
+            patientPresentButton.style.display = "block";  //3c
 
             //nowServing(document.getElementById("tentName").value)
             let tent = document.getElementById("tentName").value
@@ -42,12 +44,9 @@
         }
 
         async function patientPresent() {
-
-            var pp = document.getElementById("patientPresentButton");
-            var np = document.getElementById("nextPatientButton");
             
-            pp.style.display = "none";  //4a
-            np.style.display = "block";  //4b
+            patientPresentButton.style.display = "none";  //4a
+            nextPatientButton.style.display = "block";  //4b
 
             let ticketNum = document.getElementById('nowServingField').value 
             let URL= `${server}/present?ticket=${ticketNum}`
@@ -57,13 +56,7 @@
 
         }
 
-        //obsoleted
-        async function nowServing(tent) {
-            let response = await fetch(`${server}/next?tent=${tent}`)
-            const obj = await response.json();  // we use built in method in response - .json()            
-            document.getElementById('nowServingField').value = obj.ticket  // check line 21 in app.js for the key name - ticket
-        }
-
+        
         async function callServer(URL) {
             let response = await fetch(URL)
             const obj = await response.json();  // we use built in method in response - .json()
